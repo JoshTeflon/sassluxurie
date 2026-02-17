@@ -3,11 +3,7 @@ import { createStep, createWorkflow, StepResponse, WorkflowResponse } from "@med
 import { BRAND_MODULE } from "../modules/brand";
 import BrandModuleService from "../modules/brand/service";
 
-export type CreateBrandInput = {
-  name: string;
-  description?: string;
-  logo_url?: string;
-};
+import { CreateBrandInput } from "../types/brand";
 
 export const createBrandStep = createStep(
   "create-brand-step",
