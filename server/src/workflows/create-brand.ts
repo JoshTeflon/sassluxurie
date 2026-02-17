@@ -17,5 +17,10 @@ export const createBrandStep = createStep(
     const brand = await brandModuleService.createBrands(input);
 
     return new StepResponse(brand, brand.id);
+  },
+  async (id: string, { container }) => {
+    const brandModuleService: BrandModuleService = container.resolve(BRAND_MODULE);
+
+    await brandModuleService.deleteBrands(id);
   }
 );
