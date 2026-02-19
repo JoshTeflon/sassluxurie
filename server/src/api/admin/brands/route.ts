@@ -1,10 +1,13 @@
+import z from "zod";
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 
 import { createBrandWorkflow } from "../../../workflows/create-brand";
 
-import { CreateBrandInput } from "../../../types/brand";
+import { AdminCreateBrandRequestSchema } from "./validators";
 
-export const POST = async (req: MedusaRequest<CreateBrandInput>, res: MedusaResponse) => {
+type AdminCreateBrandRequestType = z.infer<typeof AdminCreateBrandRequestSchema>;
+
+export const POST = async (req: MedusaRequest<AdminCreateBrandRequestType>, res: MedusaResponse) => {
   const { result } = await createBrandWorkflow(req.scope).run({
     input: req.validatedBody,
   });
