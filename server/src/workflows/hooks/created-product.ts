@@ -37,5 +37,17 @@ createProductsWorkflow.hooks.productsCreated(
     logger.info(`Created ${links.length} links between products and brand ${additional_data.brand_id}`);
 
     return new StepResponse(links, links);
+  }),
+  (async (links, { container }) => {
+    if (!links?.length) {
+      return;
+    }
+
+    const link = container.resolve("link");
+    const logger = container.resolve("logger");
+
+    await link.dismiss(links);
+
+    logger.info(`Dismissed ${links.length} links between products and brand`);
   })
 );
