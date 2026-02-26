@@ -50,7 +50,7 @@ const ProductBrandWidget = ({ data: product }: DetailWidgetProps<AdminProduct>) 
 };
 
 export const config = defineWidgetConfig({
-  zone: "product.details.before",
+  zone: "product.details.side.before",
 });
 
 export default ProductBrandWidget;
