@@ -1,9 +1,9 @@
-import z from "zod";
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 
-import { createBrandWorkflow } from "../../../workflows/create-brand";
+import z from "zod";
 
 import { AdminCreateBrandRequestSchema } from "./validators";
+import { createBrandWorkflow } from "../../../workflows/create-brand";
 
 type AdminCreateBrandRequestType = z.infer<typeof AdminCreateBrandRequestSchema>;
 
