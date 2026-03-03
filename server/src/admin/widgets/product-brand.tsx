@@ -18,7 +18,7 @@ const ProductBrandWidget = ({ data: product }: DetailWidgetProps<AdminProduct>) 
     queryKey: [["product", product.id]],
   });
 
-  const brandName = (queryResult?.product as AdminProductBrand)?.brand?.name;
+  const brandName: string | undefined = (queryResult?.product as AdminProductBrand)?.brand?.name;
 
   return (
     <Container className="divide-y p-0">
@@ -28,11 +28,7 @@ const ProductBrandWidget = ({ data: product }: DetailWidgetProps<AdminProduct>) 
         </div>
       </div>
 
-      <div
-        className={clx(
-          `text-ui-fg-subtle grid grid-cols-2 items-center px-6 py-4`
-        )}
-      >
+      <div className={clx(`text-ui-fg-subtle grid grid-cols-2 items-center px-6 py-4`)}>
         <Text size="small" weight="plus" leading="compact">
           Name
         </Text>
