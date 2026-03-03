@@ -64,7 +64,13 @@ const BrandsPage = () => {
 
   return (
     <Container className="divide-y p-0">
-      {/* TODO: Implement brands list page */}
+      <DataTable instance={table}>
+        <DataTable.Toolbar className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
+          <Heading>Brands</Heading>
+        </DataTable.Toolbar>
+        <DataTable.Table />
+        <DataTable.Pagination />
+      </DataTable>
     </Container>
   );
 };
