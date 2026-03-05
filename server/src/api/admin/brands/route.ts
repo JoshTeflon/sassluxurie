@@ -1,21 +1,29 @@
-import z from "zod";
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 
-import { createBrandWorkflow } from "../../../workflows/create-brand";
+import z from "zod";
 
 import { AdminCreateBrandRequestSchema } from "./validators";
+import { createBrandWorkflow } from "../../../workflows/create-brand";
 
 type AdminCreateBrandRequestType = z.infer<typeof AdminCreateBrandRequestSchema>;
 
 export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
   const query = req.scope.resolve("query");
 
-  const { data: brands } = await query.graph({
+  const {
+    data: brands,
+    metadata: { count, take, skip } = { count: 0, take: 0, skip: 0 },
+  } = await query.graph({
     entity: "brand",
-    fields: ["*", "products.*"],
+    ...req.queryConfig,
   });
 
-  res.json({ brands });
+  res.json({
+    brands,
+    count,
+    limit: take,
+    offset: skip
+  });
 };
 
 export const POST = async (req: MedusaRequest<AdminCreateBrandRequestType>, res: MedusaResponse) => {

@@ -1,7 +1,10 @@
-import { defineMiddlewares, validateAndTransformBody } from "@medusajs/framework/http";
+import { defineMiddlewares, validateAndTransformBody, validateAndTransformQuery } from "@medusajs/framework/http";
+import { createFindParams } from "@medusajs/medusa/api/utils/validators";
 import z from "zod";
 
 import { AdminCreateBrandRequestSchema } from "./admin/brands/validators";
+
+export const GetBrandsSchema = createFindParams();
 
 export default defineMiddlewares({
   routes: [
@@ -18,6 +21,19 @@ export default defineMiddlewares({
       additionalDataValidator: {
         brand_id: z.string().optional(),
       }
-    }
+    },
+    {
+      matcher: "/admin/brands",
+      method: "GET",
+      middlewares: [
+        validateAndTransformQuery(
+          GetBrandsSchema,
+          {
+            defaults: ["id", "name", "description", "logo_url", "products.*"],
+            isList: true,
+          }
+        )
+      ],
+    },
   ]
 });
